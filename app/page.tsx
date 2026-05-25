@@ -7,31 +7,56 @@ const cars = [
   {
     name: "Lamborghini Aventador",
     price: "$500,000",
+    topSpeed: "350 km/h",
+    horsepower: "770 HP",
     image:
       "https://images.unsplash.com/photo-1544636331-e26879cd4d9b",
   },
   {
     name: "Porsche 911 Turbo S",
     price: "$230,000",
+    topSpeed: "330 km/h",
+    horsepower: "640 HP",
     image:
       "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    name: "Nissan GT-R",
-    price: "$180,000",
-    image:
-      "https://images.unsplash.com/photo-1494905998402-395d579af36f",
-  },
-  {
     name: "Ferrari SF90",
     price: "$625,000",
+    topSpeed: "340 km/h",
+    horsepower: "986 HP",
     image:
       "https://images.unsplash.com/photo-1502877338535-766e1452684a",
+  },
+  {
+    name: "McLaren 720S",
+    price: "$315,000",
+    topSpeed: "341 km/h",
+    horsepower: "710 HP",
+    image:
+      "https://images.unsplash.com/photo-1492144534655-ae79c964c9d",
+  },
+  {
+    name: "Bugatti Chiron",
+    price: "$3,000,000",
+    topSpeed: "420 km/h",
+    horsepower: "1500 HP",
+    image:
+      "https://images.unsplash.com/photo-1511919884226-fd3cad34687c",
+  },
+  {
+    name: "Mercedes AMG GT",
+    price: "$180,000",
+    topSpeed: "315 km/h",
+    horsepower: "577 HP",
+    image:
+      "https://images.unsplash.com/photo-1553440569-bcc63803a83d",
   },
 ];
 
 export default function Home() {
   const [search, setSearch] = useState("");
+  const [selectedCar, setSelectedCar] = useState<any>(null);
   const [darkMode, setDarkMode] = useState(true);
 
   return (
@@ -155,8 +180,11 @@ export default function Home() {
                       {car.price}
                     </p>
 
-                    <button className="mt-4 px-5 py-2 bg-white text-black rounded-full">
-                      View Details
+                    <button
+                      onClick={() => setSelectedCar(car)}
+                      className="mt-4 px-6 py-2 bg-white text-black rounded-full font-semibold hover:scale-105 transition"
+                    >
+                      Details
                     </button>
                   </div>
                 </motion.div>
@@ -183,6 +211,42 @@ export default function Home() {
 
 
         </section>
+        {selectedCar && (
+          <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+            <div className="bg-zinc-900 text-white p-8 rounded-3xl max-w-lg w-full relative">
+
+              <button
+                onClick={() => setSelectedCar(null)}
+                className="absolute top-4 right-4 text-2xl"
+              >
+                ✕
+              </button>
+
+              <img
+                src={selectedCar.image}
+                alt={selectedCar.name}
+                className="w-full h-64 object-cover rounded-2xl"
+              />
+
+              <h2 className="text-4xl font-bold mt-6">
+                {selectedCar.name}
+              </h2>
+
+              <p className="mt-4 text-gray-300">
+                Price: {selectedCar.price}
+              </p>
+
+              <p className="text-gray-300">
+                Top Speed: {selectedCar.topSpeed}
+              </p>
+
+              <p className="text-gray-300">
+                Horsepower: {selectedCar.horsepower}
+              </p>
+
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
